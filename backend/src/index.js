@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use('/auth', require('./routes/auth'));
 app.use('/courses', require('./routes/courses'));
+app.use('/lessons', require('./routes/lessons'));
 
 app.get('/', (req, res) => res.send('API CourseSphere ativa!'));
 

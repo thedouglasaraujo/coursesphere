@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ProtectedLayout from '~/layouts/ProtectedLayout';
+import CourseDetails from '~/pages/CourseDetails';
 import Dashboard from '~/pages/Dashboard';
 import Login from '~/pages/Login';
 
@@ -26,6 +27,7 @@ export default function AppRoutes() {
                     }
                 >
                     <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="courses/:id" element={<CourseDetails />} />
                 </Route>
 
                 <Route path="*" element={<Navigate to="/login" replace />} />

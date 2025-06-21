@@ -3,6 +3,7 @@ import ProtectedLayout from '~/layouts/ProtectedLayout';
 import CourseDetails from '~/pages/CourseDetails';
 import CourseForm from '~/pages/CourseForm';
 import Dashboard from '~/pages/Dashboard';
+import InstructorsManager from '~/pages/InstructorsManager';
 import Login from '~/pages/Login';
 
 const isAuthenticated = () => {
@@ -31,6 +32,7 @@ export default function AppRoutes() {
                     <Route path="courses/:id" element={<CourseDetails />} />
                     <Route path="courses/new" element={<CourseForm />} />
                     <Route path="courses/:id/edit" element={<CourseForm />} />
+                    <Route path="courses/:id/instructors" element={<InstructorsManager />} />
                 </Route>
 
                 <Route path="*" element={<Navigate to="/login" replace />} />

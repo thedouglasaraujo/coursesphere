@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ProtectedLayout from '~/layouts/ProtectedLayout';
+import Dashboard from '~/pages/Dashboard';
 import Login from '~/pages/Login';
 
 const isAuthenticated = () => {
@@ -24,6 +25,7 @@ export default function AppRoutes() {
                         </PrivateRoute>
                     }
                 >
+                    <Route path="dashboard" element={<Dashboard />} />
                 </Route>
 
                 <Route path="*" element={<Navigate to="/login" replace />} />

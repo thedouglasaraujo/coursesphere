@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 
   image: {
-    width: '100px',
+    width: '160px',
     height: '100px',
     borderRadius: '8px',
   },

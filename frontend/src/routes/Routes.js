@@ -4,6 +4,7 @@ import CourseDetails from '~/pages/CourseDetails';
 import CourseForm from '~/pages/CourseForm';
 import Dashboard from '~/pages/Dashboard';
 import InstructorsManager from '~/pages/InstructorsManager';
+import LessonForm from '~/pages/LessonForm';
 import Login from '~/pages/Login';
 
 const isAuthenticated = () => {
@@ -33,6 +34,8 @@ export default function AppRoutes() {
                     <Route path="courses/new" element={<CourseForm />} />
                     <Route path="courses/:id/edit" element={<CourseForm />} />
                     <Route path="courses/:id/instructors" element={<InstructorsManager />} />
+                    <Route path="courses/:courseId/lessons/new" element={<LessonForm />} />
+                    <Route path="lessons/:lessonId/edit" element={<LessonForm />} />
                 </Route>
 
                 <Route path="*" element={<Navigate to="/login" replace />} />

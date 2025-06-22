@@ -3,6 +3,7 @@ import ProtectedLayout from '~/layouts/ProtectedLayout';
 import CourseDetails from '~/pages/CourseDetails';
 import CourseForm from '~/pages/CourseForm';
 import Dashboard from '~/pages/Dashboard';
+import ErrorPage from '~/pages/ErrorPage';
 import InstructorsManager from '~/pages/InstructorsManager';
 import LessonForm from '~/pages/LessonForm';
 import Login from '~/pages/Login';
@@ -37,6 +38,9 @@ export default function AppRoutes() {
                     <Route path="courses/:courseId/lessons/new" element={<LessonForm />} />
                     <Route path="lessons/:lessonId/edit" element={<LessonForm />} />
                 </Route>
+
+                <Route path="/forbidden" element={<ErrorPage code={403} />} />
+                <Route path="/error" element={<ErrorPage code={500} />} />
 
                 <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>

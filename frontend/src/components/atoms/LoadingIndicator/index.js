@@ -1,17 +1,15 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import stylesFn from './styles';
 
 export default function LoadingIndicator({ message = 'Carregando...' }) {
+  const theme = useTheme();
+  const styles = stylesFn(theme);
+
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      height="90vh"
-      width="100vw"
-    >
+    <Box sx={styles.container}>
       <CircularProgress />
-      <Typography mt={2} color="primary">
+      <Typography sx={styles.message}>
         {message}
       </Typography>
     </Box>

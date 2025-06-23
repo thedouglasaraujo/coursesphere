@@ -11,6 +11,7 @@ router.get('/:id', courseController.show);
 router.put('/:id', courseController.update);
 router.delete('/:id', courseController.destroy);
 
+router.get('/:id/instructors', courseController.getInstructors);
 router.post('/:id/instructors', courseController.addInstructor);
 router.delete('/:id/instructors', courseController.removeInstructor);
 

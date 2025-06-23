@@ -22,6 +22,16 @@ const styles = theme => ({
     height: '100px',
     borderRadius: '8px',
   },
+
+  listItem: {
+    mb: 2,
+  },
+
+  thumbnailBox: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
+  },
 });
 
 export default styles;

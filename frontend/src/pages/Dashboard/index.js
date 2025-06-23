@@ -2,11 +2,13 @@ import { Box, Card, Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import CourseDateChips from '~/components/atoms/CourseDateChips';
 import ErrorMessage from '~/components/atoms/ErrorMessage';
 import LoadingIndicator from '~/components/atoms/LoadingIndicator';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
-import CourseDateChips from '~/components/atoms/CourseDateChips';
 import { getCourses } from '~/services/courseService';
+
 import stylesFn from './styles';
 
 export default function Dashboard() {
@@ -22,7 +24,7 @@ export default function Dashboard() {
       try {
         const data = await getCourses();
         setCourses(data);
-      } catch (err) {
+      } catch {
         setError(true);
       } finally {
         setLoading(false);
@@ -31,6 +33,9 @@ export default function Dashboard() {
 
     fetchCourses();
   }, []);
+
+  const handleNewCourse = () => navigate('/courses/new');
+  const handleOpenCourse = id => navigate(`/courses/${id}`);
 
   if (loading) return <LoadingIndicator />;
   if (error) return <ErrorMessage message="Erro ao carregar cursos." />;
@@ -42,7 +47,7 @@ export default function Dashboard() {
           <Typography variant="h4" sx={styles.headerTitle}>
             Meus Cursos
           </Typography>
-          <PrimaryButton onClick={() => navigate('/courses/new')}>Novo Curso</PrimaryButton>
+          <PrimaryButton onClick={handleNewCourse}>Novo Curso</PrimaryButton>
         </Box>
 
         {courses.length === 0 ? (
@@ -50,10 +55,10 @@ export default function Dashboard() {
         ) : (
           <Grid container spacing={4}>
             {courses.map(course => (
-              <Grid item xs={12} sm={6} key={course.id}>
+              <Grid item xs={12} sm={6} md={4} key={course.id}>
                 <Card
                   sx={styles.card}
-                  onClick={() => navigate(`/courses/${course.id}`)}
+                  onClick={() => handleOpenCourse(course.id)}
                   elevation={0}
                 >
                   <Box>
@@ -65,9 +70,7 @@ export default function Dashboard() {
                     </Typography>
                   </Box>
 
-                  <Box display="flex" justifyContent="space-between" mt={2}>
-                    <CourseDateChips startDate={course.start_date} endDate={course.end_date} />
-                  </Box>
+                  <CourseDateChips startDate={course.start_date} endDate={course.end_date} />
                 </Card>
               </Grid>
             ))}

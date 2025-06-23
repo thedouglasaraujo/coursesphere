@@ -25,6 +25,23 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     mt: 2,
   },
+
+  sectionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  dateChipsBox: {
+    display: 'flex',
+    gap: 2,
+    marginTop: theme.spacing(2),
+  },
+  
+  paginationBox: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(4),
+  },
 });
 
 export default styles;

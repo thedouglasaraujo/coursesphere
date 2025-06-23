@@ -3,22 +3,24 @@ import { useTheme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import InputField from '~/components/atoms/InputField';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import SelectField from '~/components/atoms/SelectField';
-import CancelButton from '~/components/atoms/TextButton';
+import TextButton from '~/components/atoms/TextButton';
 import { LESSON_STATUS_OPTIONS } from '~/constants/lessonStatus';
 import { useSnackbar } from '~/contexts/SnackbarContext';
 import { createLesson, getLessonById, updateLesson } from '~/services/lessonService';
+
 import stylesFn from './styles';
 
 export default function LessonForm() {
   const { courseId, lessonId } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(lessonId);
-  const { showSnackbar } = useSnackbar();
   const theme = useTheme();
   const styles = stylesFn(theme);
+  const { showSnackbar } = useSnackbar();
 
   const {
     register,
@@ -28,18 +30,17 @@ export default function LessonForm() {
   } = useForm();
 
   useEffect(() => {
-    if (isEdit) {
-      const fetchLesson = async () => {
-        try {
-          const lesson = await getLessonById(lessonId);
-          reset(lesson);
-        } catch (err) {
-          console.error('Erro ao carregar aula:', err);
-        }
-      };
-      fetchLesson();
-    }
-  }, [lessonId, isEdit, reset]);
+    const fetchLesson = async () => {
+      try {
+        const lesson = await getLessonById(lessonId);
+        reset(lesson);
+      } catch {
+        showSnackbar('Erro ao carregar aula', 'error');
+      }
+    };
+
+    if (isEdit) fetchLesson();
+  }, [lessonId, isEdit, reset, showSnackbar]);
 
   const onSubmit = async data => {
     try {
@@ -53,18 +54,20 @@ export default function LessonForm() {
         showSnackbar('Aula criada com sucesso!', 'success');
       }
 
-      navigate(-1);
-    } catch (err) {
+      navigate(`/courses/${courseId}`);
+    } catch {
       showSnackbar('Erro ao salvar a aula', 'error');
     }
   };
+
+  const title = isEdit ? 'Editar Aula' : 'Nova Aula';
 
   return (
     <Container maxWidth={false} sx={styles.containerBox}>
       <Box sx={styles.contentContainer}>
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <Typography variant="h4" sx={styles.title}>
-            {isEdit ? 'Editar Aula' : 'Nova Aula'}
+            {title}
           </Typography>
 
           <Stack spacing={1}>
@@ -118,7 +121,7 @@ export default function LessonForm() {
 
             <Box mt={2}>
               <Stack direction="row" spacing={2} sx={styles.buttonRow}>
-                <CancelButton onClick={() => navigate(-1)}>Cancelar</CancelButton>
+                <TextButton onClick={() => navigate(-1)}>Cancelar</TextButton>
                 <PrimaryButton type="submit">Salvar</PrimaryButton>
               </Stack>
             </Box>

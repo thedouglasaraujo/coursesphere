@@ -10,6 +10,13 @@ const styles = theme => ({
     width: '75%',
   },
 
+  headerBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    mb: 4,
+  },
+
   headerTitle: {
     fontWeight: 700,
     color: theme.palette.primary.main,

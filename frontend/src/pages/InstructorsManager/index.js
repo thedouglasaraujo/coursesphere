@@ -13,12 +13,14 @@ import {
 import { useTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import ConfirmDialog from '~/components/molecules/ConfirmDialog';
 import AddInstructorModal from '~/components/organisms/AddInstructorModal';
 import ImportExternalInstructorsModal from '~/components/organisms/ImportExternalInstructorsModal';
 import { useSnackbar } from '~/contexts/SnackbarContext';
 import { addInstructor, getInstructors, removeInstructor } from '~/services/courseService';
+
 import stylesFn from './styles';
 
 export default function InstructorsManager() {
@@ -28,6 +30,7 @@ export default function InstructorsManager() {
   const [externalModalOpen, setExternalModalOpen] = useState(false);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [instructorToRemove, setInstructorToRemove] = useState(null);
+
   const { showSnackbar } = useSnackbar();
   const theme = useTheme();
   const styles = stylesFn(theme);
@@ -37,7 +40,7 @@ export default function InstructorsManager() {
       const data = await getInstructors(id);
       setInstructors(data);
     } catch (err) {
-      console.log('Erro ao buscar instrutores:', err);
+      console.error('Erro ao buscar instrutores:', err);
     }
   };
 
@@ -45,14 +48,16 @@ export default function InstructorsManager() {
     fetchInstructors();
   }, [id]);
 
-  const handleAddInstructor = async data => {
+  const handleAdd = async instructorData => {
     try {
-      await addInstructor(id, data);
-      setModalOpen(false);
+      await addInstructor(id, instructorData);
       showSnackbar('Instrutor adicionado com sucesso!', 'success');
       fetchInstructors();
     } catch (err) {
-      console.log('Erro ao adicionar instrutor:', err);
+      console.error('Erro ao adicionar instrutor:', err);
+    } finally {
+      setModalOpen(false);
+      setExternalModalOpen(false);
     }
   };
 
@@ -61,28 +66,12 @@ export default function InstructorsManager() {
     setConfirmDialogOpen(true);
   };
 
-  const handleAddExternalInstructor = async instructor => {
-    const instructorData = {
-      name: `${instructor.name.first} ${instructor.name.last}`,
-      email: instructor.email,
-      password: '123456',
-    };
-    try {
-      await addInstructor(id, instructorData);
-      setExternalModalOpen(false);
-      showSnackbar('Instrutor adicionado com sucesso!', 'success');
-      fetchInstructors();
-    } catch (err) {
-      console.log('Erro ao adicionar instrutor externo:', err);
-    }
-  };
-
   const handleConfirmDelete = async () => {
     try {
       await removeInstructor(id, instructorToRemove);
       showSnackbar('Instrutor removido com sucesso!', 'success');
       fetchInstructors();
-    } catch (err) {
+    } catch {
       showSnackbar('Erro ao remover instrutor', 'error');
     } finally {
       setConfirmDialogOpen(false);
@@ -93,7 +82,7 @@ export default function InstructorsManager() {
   return (
     <Box sx={styles.containerBox}>
       <Container maxWidth={false} sx={styles.contentContainer}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={styles.headerBox}>
           <Typography variant="h4" sx={styles.headerTitle}>
             Instrutores
           </Typography>
@@ -108,16 +97,16 @@ export default function InstructorsManager() {
         <Divider sx={{ my: 4 }} />
 
         <List>
-          {instructors.map(c => (
+          {instructors.map(instructor => (
             <ListItem
-              key={c.id}
+              key={instructor.id}
               secondaryAction={
-                <IconButton edge="end" onClick={() => handleRemoveInstructor(c.id)}>
+                <IconButton edge="end" onClick={() => handleRemoveInstructor(instructor.id)}>
                   <DeleteIcon />
                 </IconButton>
               }
             >
-              <ListItemText primary={c.name} secondary={c.email} />
+              <ListItemText primary={instructor.name} secondary={instructor.email} />
             </ListItem>
           ))}
         </List>
@@ -126,13 +115,19 @@ export default function InstructorsManager() {
       <AddInstructorModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        onAdd={handleAddInstructor}
+        onAdd={handleAdd}
       />
 
       <ImportExternalInstructorsModal
         open={externalModalOpen}
         onClose={() => setExternalModalOpen(false)}
-        onAdd={handleAddExternalInstructor}
+        onAdd={instructor => {
+          handleAdd({
+            name: `${instructor.name.first} ${instructor.name.last}`,
+            email: instructor.email,
+            password: '123456',
+          });
+        }}
       />
 
       <ConfirmDialog

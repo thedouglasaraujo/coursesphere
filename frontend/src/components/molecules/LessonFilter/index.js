@@ -1,19 +1,19 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-
-const statusOptions = [
-  { value: 'draft', label: 'Em Rascunho' },
-  { value: 'published', label: 'Publicada' },
-  { value: 'archived', label: 'Arquivada' },
-];
+import { useTheme } from '@mui/material/styles';
+import { LESSON_STATUS_OPTIONS } from '~/constants/lessonStatus';
+import stylesFn from './styles';
 
 export default function LessonFilter({ filters, onFilterChange }) {
+  const theme = useTheme();
+  const styles = stylesFn(theme);
+
   const handleFilterChange = e => {
     const { name, value } = e.target;
     onFilterChange({ [name]: value });
   };
 
   return (
-    <Box sx={{ display: 'flex', gap: 2, my: 2 }}>
+    <Box sx={styles.filterBox}>
       <TextField
         label="Título"
         name="title"
@@ -28,7 +28,7 @@ export default function LessonFilter({ filters, onFilterChange }) {
           <MenuItem value="">
             <em>Todos</em>
           </MenuItem>
-          {statusOptions.map(option => (
+          {LESSON_STATUS_OPTIONS.map(option => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>

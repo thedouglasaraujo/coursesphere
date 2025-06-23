@@ -7,15 +7,10 @@ import InputField from '~/components/atoms/InputField';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import SelectField from '~/components/atoms/SelectField';
 import CancelButton from '~/components/atoms/TextButton';
+import { LESSON_STATUS_OPTIONS } from '~/constants/lessonStatus';
 import { useSnackbar } from '~/contexts/SnackbarContext';
 import { createLesson, getLessonById, updateLesson } from '~/services/lessonService';
 import stylesFn from './styles';
-
-const statusOptions = [
-  { value: 'draft', label: 'Em Rascunho' },
-  { value: 'archived', label: 'Arquivada' },
-  { value: 'published', label: 'Publicada' },
-];
 
 export default function LessonForm() {
   const { courseId, lessonId } = useParams();
@@ -94,7 +89,7 @@ export default function LessonForm() {
               register={register}
               rules={{ required: 'Campo obrigatório' }}
               errors={errors}
-              options={statusOptions}
+              options={LESSON_STATUS_OPTIONS}
             />
             <InputField
               label="Data de Publicação *"

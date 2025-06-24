@@ -5,6 +5,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     px: 2,
+    backgroundColor: theme.palette.primary.main,
   },
   paper: {
     p: 4,

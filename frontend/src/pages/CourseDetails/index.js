@@ -94,7 +94,7 @@ export default function CourseDetails() {
   const handleConfirmLessonDelete = async () => {
     try {
       await deleteLesson(lessonToDelete);
-      setFilters(prev => ({ ...prev })); // força recarregar
+      setFilters(prev => ({ ...prev }));
       showSnackbar('Aula excluída com sucesso!', 'success');
     } catch {
       showSnackbar('Erro ao excluir aula', 'error');

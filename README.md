@@ -109,3 +109,43 @@ Crie um arquivo .env dentro da pasta backend com as variáveis de ambiente neces
 - **Validações** de formulários
 </p>
 
+## Imagens da Aplicação
+
+<p align="center">
+  <img src="images/login.png">
+  <img src="images/login-error.png">
+  <img src="images/dashboard.png">
+  <img src="images/new-course.png">
+  <img src="images/new-course-validations.png">
+  <img src="images/new-course-preenchido.png">
+  <img src="images/new-course-criado.png">
+  <img src="images/pagina-curso.png">
+  <img src="images/edicao-curso.png">
+  <img src="images/instrutores.png">
+  <img src="images/adicionar-instrutor.png">
+  <img src="images/adicionar-instrutor-erros.png">
+  <img src="images/importar-instrutores.png">
+  <img src="images/instrutores-importados.png">
+  <img src="images/remover-instrutor.png">
+  <img src="images/instrutor-removido.png">
+  <img src="images/instrutores-adicionados.png">
+  <img src="images/nova-aula.png">
+  <img src="images/nova-aula-validacoes.png">
+  <img src="images/nova-aula-preenchido.png">
+  <img src="images/nova-aula-criada.png">
+  <img src="images/aulas.png">
+  <img src="images/aulas-paginacao.png">
+  <img src="images/filtro-arquivadas.png">
+  <img src="images/filtro-publicadas.png">
+  <img src="images/filtro-busca.png">
+  <img src="images/editar-aula.png">
+  <img src="images/aula-atualizada.png">
+  <img src="images/excluir-curso.png">
+  <img src="images/excluir-aula.png">
+  <img src="images/aula-excluida.png">
+  <img src="images/tela-erro.png">
+  <img src="images/tela-forbidden.png">
+  <img src="images/tela-loading.png">
+  <img src="images/visao-instrutor.png">
+  <img src="images/aula-criada-instrutor.png">
+</p>
